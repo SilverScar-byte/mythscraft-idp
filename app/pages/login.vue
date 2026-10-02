@@ -15,7 +15,7 @@ const rememberMe = ref(false)
 
       <!-- Left flowing shapes -->
       <svg
-        class="absolute -left-20 top-0 h-full w-[55%]"
+        class="vector-drift-left absolute -left-20 top-0 h-full w-[55%]"
         viewBox="0 0 800 1000"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -52,7 +52,7 @@ const rememberMe = ref(false)
 
       <!-- Right flowing shapes -->
       <svg
-        class="absolute -right-20 top-0 h-full w-[55%]"
+        class="vector-drift-right absolute -right-20 top-0 h-full w-[55%]"
         viewBox="0 0 800 1000"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -93,35 +93,35 @@ const rememberMe = ref(false)
 
       <!-- Top-left large ring -->
       <div
-        class="absolute -left-40 -top-52
-              h-[520px] w-[520px] rounded-full
-              border border-rose-200/25"
+        class="ring-float-one absolute -left-40 -top-52
+                h-[520px] w-[520px] rounded-full
+                border border-rose-200/25"
       ></div>
 
       <!-- Bottom-left ring -->
       <div
-        class="absolute -bottom-60 -left-32
-              h-[520px] w-[520px] rounded-full
-              border border-rose-200/20"
+        class="ring-float-two absolute -bottom-60 -left-32
+                h-[520px] w-[520px] rounded-full
+                border border-rose-200/20"
       ></div>
 
       <!-- Bottom-right large ring -->
       <div
-        class="absolute -bottom-64 -right-20
-              h-[600px] w-[600px] rounded-full
-              border border-lime-200/30"
+        class="ring-float-three absolute -bottom-64 -right-20
+                h-[600px] w-[600px] rounded-full
+                border border-lime-200/30"
       ></div>
 
 
       <!-- Left dot grid -->
-      <div class="absolute left-[16%] top-[24%] grid grid-cols-4 gap-4 opacity-40">
+      <div class="dots-breathe-left absolute left-[16%] top-[24%] grid grid-cols-4 gap-4 opacity-40">
         <template v-for="n in 16" :key="`left-dot-${n}`">
           <span class="h-1 w-1 rounded-full bg-rose-200"></span>
         </template>
       </div>
 
       <!-- Right dot grid -->
-      <div class="absolute right-[7%] top-[18%] grid grid-cols-4 gap-4 opacity-40">
+      <div class="dots-breathe-right absolute right-[7%] top-[18%] grid grid-cols-4 gap-4 opacity-40">
         <template v-for="n in 20" :key="`right-dot-${n}`">
           <span class="h-1 w-1 rounded-full bg-lime-200"></span>
         </template>
@@ -140,27 +140,31 @@ const rememberMe = ref(false)
       ></div>
 
 
-      <!-- Sparkles -->
-      <div
-        class="absolute left-[8%] top-[19%]
-              rotate-45 text-xl text-rose-200/70"
-      >
-        ✦
-      </div>
+        <!-- Sparkles -->
 
-      <div
-        class="absolute left-[24%] top-[67%]
-              rotate-45 text-xl text-rose-200/50"
-      >
+        <!-- Sparkle 1: Upper-left -->
+        <div
+        class="sparkle-one absolute left-[8%] top-[19%]
+                rotate-45 text-xl text-rose-200/70"
+        >
         ✦
-      </div>
+        </div>
 
-      <div
-        class="absolute right-[9%] top-[21%]
-              rotate-45 text-xl text-lime-200/70"
-      >
+        <!-- Sparkle 2: Lower-left -->
+        <div
+        class="sparkle-two absolute left-[24%] top-[67%]
+                rotate-45 text-xl text-rose-200/50"
+        >
         ✦
-      </div>
+        </div>
+
+        <!-- Sparkle 3: Upper-right -->
+        <div
+        class="sparkle-three absolute right-[9%] top-[21%]
+                rotate-45 text-xl text-lime-200/70"
+        >
+        ✦
+        </div>
 
     </div>
 

@@ -21,3 +21,130 @@
 
   background-attachment: fixed;
 }
+
+/* ================================
+   MythsCraft Background Animation
+   ================================ */
+
+@keyframes drift-left {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(18px, -10px, 0) scale(1.025);
+  }
+}
+
+@keyframes drift-right {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-20px, 12px, 0) scale(1.03);
+  }
+}
+
+.vector-drift-left {
+  transform-origin: left center;
+  animation: drift-left 16s ease-in-out infinite;
+}
+
+.vector-drift-right {
+  transform-origin: right center;
+  animation: drift-right 19s ease-in-out infinite;
+}
+
+
+/* Floating Rings */
+
+@keyframes ring-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(12px, -16px, 0);
+  }
+}
+
+.ring-float-one {
+  animation: ring-float 24s ease-in-out infinite;
+}
+
+.ring-float-two {
+  animation: ring-float 29s ease-in-out infinite reverse;
+}
+
+.ring-float-three {
+  animation: ring-float 27s ease-in-out infinite;
+}
+
+
+/* Breathing Dot Grids */
+
+@keyframes dots-breathe {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.55;
+    transform: translateY(-5px);
+  }
+}
+
+.dots-breathe-left {
+  animation: dots-breathe 9s ease-in-out infinite;
+}
+
+.dots-breathe-right {
+  animation: dots-breathe 11s ease-in-out infinite reverse;
+}
+
+
+/* Sparkles */
+
+@keyframes sparkle-pulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: rotate(45deg) scale(0.85);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: rotate(45deg) scale(1.15);
+  }
+}
+
+.sparkle-one {
+  animation: sparkle-pulse 5s ease-in-out infinite;
+}
+
+.sparkle-two {
+  animation: sparkle-pulse 7s ease-in-out 1.5s infinite;
+}
+
+.sparkle-three {
+  animation: sparkle-pulse 6s ease-in-out 0.7s infinite;
+}
+
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .vector-drift-left,
+  .vector-drift-right,
+  .ring-float-one,
+  .ring-float-two,
+  .ring-float-three,
+  .dots-breathe-left,
+  .dots-breathe-right,
+  .sparkle-one,
+  .sparkle-two,
+  .sparkle-three {
+    animation: none;
+  }
+}
