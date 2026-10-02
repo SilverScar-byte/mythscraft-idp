@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+.login-background {
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(120, 55, 80, 0.55),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 80% 75%,
+      rgba(140, 160, 65, 0.45),
+      transparent 40%
+    ),
+    linear-gradient(
+      120deg,
+      #532d3b 0%,
+      #382d2d 48%,
+      #708238 100%
+    );
+
+  background-attachment: fixed;
+}
