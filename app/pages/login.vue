@@ -1,8 +1,40 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const supabase = useSupabaseClient()
+
+const email = ref('')
+const password = ref('')
 const showPassword = ref(false)
 const rememberMe = ref(false)
+
+const isLoading = ref(false)
+const errorMessage = ref('')
+
+const handleLogin = async () => {
+  errorMessage.value = ''
+
+  if (!email.value || !password.value) {
+    errorMessage.value = 'Please enter your email and password.'
+    return
+  }
+
+  isLoading.value = true
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
+
+  isLoading.value = false
+
+  if (error) {
+    errorMessage.value = 'Invalid email or password.'
+    return
+  }
+
+  await navigateTo('/dashboard')
+}
 </script>
 
 <template>
@@ -197,7 +229,7 @@ const rememberMe = ref(false)
 
 
       <!-- Login Card -->
-      <form @submit.prevent>
+      <form @submit.prevent="handleLogin">
         <div
           class="rounded-2xl border border-white/20
                 bg-black/20 p-7
@@ -227,6 +259,7 @@ const rememberMe = ref(false)
 
             <input
               id="email"
+              v-model="email"
               type="email"
               placeholder="you@example.com"
               class="w-full rounded-xl
@@ -261,6 +294,7 @@ const rememberMe = ref(false)
             <div class="relative">
               <input
                 id="password"
+                v-model="password"
                 :type="showPassword ? 'text' : 'password'"
                 placeholder="Enter your password"
                 class="w-full rounded-xl

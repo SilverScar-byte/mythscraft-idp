@@ -148,3 +148,54 @@
     animation: none;
   }
 }
+
+/* ================================
+   Dashboard Layout
+   ================================ */
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.75rem;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 0.875rem;
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sidebar-link.router-link-active {
+  background: rgba(255, 255, 255, 0.09);
+  color: white;
+}
+
+.profile-link {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.65rem;
+
+  text-align: left;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.profile-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
