@@ -80,6 +80,13 @@ const displayFaction = computed(() => {
 const userInitial = computed(() => {
   return displayName.value.charAt(0).toUpperCase()
 })
+
+const isAdmin = computed(() => profile.value?.role === 'ADMIN')
+
+const handleLogout = async () => {
+    await supabase.auth.signOut()
+    await navigateTo('/login')
+}
 </script>
 
 <template>
@@ -245,6 +252,7 @@ const userInitial = computed(() => {
 
         <!-- Admin Navigation -->
         <div
+          v-if="profile?.role === 'ADMIN'"
           class="mt-8 border-t border-white/10 pt-6"
         >
 
@@ -451,6 +459,7 @@ const userInitial = computed(() => {
             <button
               class="profile-link text-red-300
                      hover:bg-red-400/10"
+              @click="handleLogout"
             >
               Sign Out
             </button>
