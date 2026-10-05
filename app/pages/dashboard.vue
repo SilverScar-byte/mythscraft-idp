@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-    layout: 'dashboard',
-    middleware: 'auth'
+  layout: 'dashboard',
+  middleware: 'auth'
 })
 
 type Profile = {
@@ -90,8 +90,6 @@ const displayPosition = computed(() => {
         </div>
 
         <!-- Dashboard Content -->
-        <div class="mt-10">
-          <DashboardPositionCard :position="profile?.position ?? null" />
-        </div>
+
     </section>
 </template>
