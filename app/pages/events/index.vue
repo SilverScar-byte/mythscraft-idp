@@ -2,6 +2,7 @@
 import MonthCalendar from '~/components/events/MonthCalendar.vue'
 import EventCard from '~/components/events/EventCard.vue'
 import EventDetails from '~/components/events/EventDetails.vue'
+import EventModal from '~/components/events/EventModal.vue'
 
 definePageMeta({
   layout: 'dashboard',
@@ -22,6 +23,7 @@ type Event = {
 }
 
 const activeView = ref<'calendar' | 'table'>('calendar')
+const showEventModal = ref(false)
 
 const selectedEvent = ref<Event | null>(null)
 
@@ -31,7 +33,7 @@ function selectEvent(event: Event) {
 
 const supabase = useSupabaseClient()
 
-const { data: events, error } = await useAsyncData<Event[]>(
+const { data: events, error, refresh } = await useAsyncData<Event[]>(
   'events',
   async () => {
     const { data, error } = await supabase
@@ -81,6 +83,7 @@ if (error.value) {
         class="absolute right-0 top-14 rounded-xl border border-white/10
               bg-white/[0.06] px-5 py-2.5 text-sm font-medium text-white
               transition hover:bg-white/[0.1]"
+        @click="showEventModal = true"
       >
         + New Event
       </button>
@@ -183,5 +186,12 @@ if (error.value) {
         Event table will go here.
       </p>
     </div>
+
+    <EventModal
+      :show="showEventModal"
+      @close="showEventModal = false"
+      @created="refresh"
+    />
+
   </section>
 </template>
