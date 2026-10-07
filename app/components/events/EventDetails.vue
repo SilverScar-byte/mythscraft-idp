@@ -16,6 +16,10 @@ defineProps<{
   event: Event
 }>()
 
+const emit = defineEmits<{
+  edit: []
+}>()
+
 function formatDate(date: string | null) {
   if (!date) return 'TBD'
 
@@ -129,8 +133,9 @@ function priorityClass(priority: string) {
 
       <button
         class="rounded-xl border border-white/15 px-4 py-3
-               text-sm text-white/70 transition
-               hover:bg-white/[0.05] hover:text-white"
+              text-sm text-white/70 transition
+              hover:bg-white/[0.05] hover:text-white"
+        @click="emit('edit')"
       >
         Edit Event
       </button>

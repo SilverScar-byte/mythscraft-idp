@@ -167,6 +167,7 @@ if (error.value) {
           <EventDetails
             v-if="selectedEvent"
             :event="selectedEvent"
+            @edit="showEventModal = true"
           />
 
           <div
@@ -189,8 +190,9 @@ if (error.value) {
 
     <EventModal
       :show="showEventModal"
+      :event="selectedEvent"
       @close="showEventModal = false"
-      @created="refresh"
+      @created="refresh()"
     />
 
   </section>

@@ -1,6 +1,20 @@
 <script setup lang="ts">
-defineProps<{
+type Event = {
+  id: string
+  name: string
+  description: string | null
+  status: string
+  start_date: string | null
+  end_date: string | null
+  priority: string
+  venue: string | null
+  event_type: string | null
+  is_featured: boolean
+}
+
+const props = defineProps<{
   show: boolean
+  event?: Event | null
 }>()
 
 const emit = defineEmits<{
@@ -20,6 +34,25 @@ const form = reactive({
   is_featured: false,
   planning_started_at: ''
 })
+
+watch(
+  () => props.show,
+  (show) => {
+    if (!show || !props.event) return
+
+    form.name = props.event.name
+    form.description = props.event.description ?? ''
+    form.event_type = props.event.event_type ?? ''
+    form.status = props.event.status
+    form.priority = props.event.priority
+    form.start_date = props.event.start_date ?? ''
+    form.end_date = props.event.end_date ?? ''
+    form.venue = props.event.venue ?? ''
+    form.is_featured = props.event.is_featured
+  }
+)
+
+const isEditing = computed(() => !!props.event)
 
 const supabase = useSupabaseClient<any>()
 const user = useSupabaseUser()
@@ -44,21 +77,38 @@ async function createEvent() {
 
   console.log('Frontend user:', user.value)
 
-  const { error } = await supabase
+  const eventData = {
+  name: form.name.trim(),
+  description: form.description.trim() || null,
+  event_type: form.event_type.trim() || null,
+  status: form.status,
+  priority: form.priority,
+  start_date: form.start_date || null,
+  end_date: form.end_date || null,
+  venue: form.venue.trim() || null,
+  is_featured: form.is_featured,
+  planning_started_at: form.planning_started_at || null
+}
+
+let error
+
+if (isEditing.value && props.event) {
+  const result = await supabase
+    .from('events')
+    .update(eventData)
+    .eq('id', props.event.id)
+
+  error = result.error
+} else {
+  const result = await supabase
     .from('events')
     .insert({
-      name: form.name.trim(),
-      description: form.description.trim() || null,
-      event_type: form.event_type.trim() || null,
-      status: form.status,
-      priority: form.priority,
-      start_date: form.start_date || null,
-      end_date: form.end_date || null,
-      venue: form.venue.trim() || null,
-      is_featured: form.is_featured,
-      planning_started_at: form.planning_started_at || null,
+      ...eventData,
       created_by: user.value.sub
     })
+
+  error = result.error
+}
 
   isCreating.value = false
 
@@ -100,11 +150,14 @@ async function createEvent() {
       <div class="flex items-start justify-between">
         <div>
           <h2 class="text-xl font-semibold text-white">
-            Create New Event
+            {{ isEditing ? 'Edit Event' : 'Create New Event' }}
           </h2>
 
           <p class="mt-1 text-sm text-white/40">
-            Add a new event to the MythsCraft workspace.
+            {{ isEditing
+              ? 'Update this event in the MythsCraft workspace.'
+              : 'Add a new event to the MythsCraft workspace.'
+            }}
           </p>
         </div>
 
@@ -345,7 +398,11 @@ async function createEvent() {
                     disabled:cursor-not-allowed disabled:opacity-50"
             @click="createEvent"
             >
-            {{ isCreating ? 'Creating...' : 'Create Event' }}
+            {{
+              isCreating
+                ? (isEditing ? 'Saving...' : 'Creating...')
+                : (isEditing ? 'Save Changes' : 'Create Event')
+            }}
         </button>
       </div>
     </div>
