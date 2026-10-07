@@ -19,7 +19,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   close: []
-  created: []
+  saved: []
 }>()
 
 const form = reactive({
@@ -118,7 +118,7 @@ if (isEditing.value && props.event) {
     return
   }
 
-  emit('created')
+  emit('saved')
   emit('close')
 }
 </script>

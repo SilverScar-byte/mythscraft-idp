@@ -18,6 +18,8 @@ defineProps<{
 
 const emit = defineEmits<{
   edit: []
+  archive: []
+  restore: []
 }>()
 
 function formatDate(date: string | null) {
@@ -132,6 +134,7 @@ function priorityClass(priority: string) {
       </button>
 
       <button
+        v-if="event.status !== 'ARCHIVED'"
         class="rounded-xl border border-white/15 px-4 py-3
               text-sm text-white/70 transition
               hover:bg-white/[0.05] hover:text-white"
@@ -139,6 +142,26 @@ function priorityClass(priority: string) {
       >
         Edit Event
       </button>
+
+      <button
+        v-if="event.status === 'ARCHIVED'"
+        class="rounded-xl border border-emerald-500/30 px-4 py-3
+              text-sm text-emerald-300 transition
+              hover:bg-emerald-500/10"
+        @click="emit('restore')"
+      >
+        Restore Event
+      </button>
     </div>
+
+    <button
+      v-if="event.status !== 'ARCHIVED'"
+      class="mt-3 w-full rounded-xl border border-red-500/20
+            px-4 py-3 text-sm text-red-300 transition
+            hover:border-red-500/40 hover:bg-red-500/10"
+      @click="emit('archive')"
+    >
+      Archive Event
+    </button>
   </aside>
 </template>
